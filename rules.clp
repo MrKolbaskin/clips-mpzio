@@ -2,7 +2,7 @@
     (declare (salience 150))
     (stop)
     =>
-    (if (eq (ask_question (nth$ 1 (find-fact ((?p question)) (eq ?p:category final)))) 1) then
+    (if (eq (ask_question (nth$ 1 (find-fact ((?p question)) (eq ?p:category final)))) y) then
         (printout t "До встречи!" crlf)
         (readline)
         (exit)
