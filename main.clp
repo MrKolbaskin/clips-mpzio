@@ -31,7 +31,9 @@
 
 (deffunction start()
 	(reset)
+	(printout t "-- In start func --" crlf)
 	(load-facts questions.clp)
+	(printout t "-- In then end of start func --" crlf)
 )
 	
 	
