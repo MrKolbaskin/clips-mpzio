@@ -1,7 +1,7 @@
 (deftemplate question
   (slot category (type SYMBOL) (default ?NONE))
   (slot text (type STRING) (default ?NONE))
-  (multislot values (type INTEGER) (default 0))
+  (multislot values (type SYMBOL) (default ?NONE))
 )
 
 (deffunction ask_question(?question)
