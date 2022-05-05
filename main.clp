@@ -16,7 +16,7 @@
 		then (bind ?answer (lowcase ?answer)))
 	(if (eq ?answer break) 
 		then (assert (break)))
-	(while (and (not (member ?answer (fact-slot-value ?question values))) (not (eq ?answer break))) do
+	(while (and (not (member$ ?answer (fact-slot-value ?question values))) (not (eq ?answer break))) do
 		(printout t "Ответ: ")
 		(bind ?answer (read))
 		(if (lexemep ?answer)
@@ -35,7 +35,7 @@
 	
 	
 (deffunction main ()
-	(load rules_utf8.clp)
+	(load rules.clp)
 	(clear-window)
 	(printout t "Рекомендательная система по инвестиционным активам на базе языка CLIPS" crlf "Авторы: 
 	Дубинин В.Д.
@@ -48,7 +48,7 @@
 		(run)
 		(printout t crlf "***НАЖМИТЕ ENTER***" crlf)
 		(readline)
-		(if (eq (ask-question (nth 1 (find-fact ((?p question)) (eq ?p:category final)))) y) then
+		(if (eq (ask-question (nth$ 1 (find-fact ((?p question)) (eq ?p:category final)))) y) then
 			(printout t "Всего доброго :)" crlf)
 			(readline)
 			(exit 0)
@@ -60,7 +60,7 @@
 	(declare (salience 150))
 	(break)
 	=>
-	(if (eq (ask-question (nth 1 (find-fact ((?p question)) (eq ?p:category final)))) y) then
+	(if (eq (ask-question (nth$ 1 (find-fact ((?p question)) (eq ?p:category final)))) y) then
 		(printout t "Всего доброго :)" crlf)
 		(readline)
 		(exit 0)
