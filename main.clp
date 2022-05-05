@@ -1,69 +1,50 @@
 (deftemplate question
-	(slot category (type SYMBOL) (default ?NONE))
-	(slot text (type STRING) (default ?NONE))
-	(multislot values (type SYMBOL) (default ?NONE))
+  (slot category (type SYMBOL) (default ?NONE))
+  (slot text (type STRING) (default ?NONE))
+  (multislot values (type INTEGER) (default 0))
 )
 
-(deffunction clear-window ()
-	(loop-for-count (?cnt 0 50) do
-        (printout t crlf)))
-
-(deffunction ask-question (?question)
+(deffunction ask_question(?question)
 	(printout t (fact-slot-value ?question text) crlf)
-	(printout t "Ответ: ")
+	(printout t "Введите ответ: ")
 	(bind ?answer (read))
 	(if (lexemep ?answer) 
 		then (bind ?answer (lowcase ?answer)))
-	(if (eq ?answer break) 
-		then (assert (break)))
-	(while (and (not (member$ ?answer (fact-slot-value ?question values))) (not (eq ?answer break))) do
-		(printout t "Ответ: ")
+	(if (eq ?answer stop) 
+		then (assert (stop)))
+	(while (and (not (member$ ?answer (fact-slot-value ?question values))) (not (eq ?answer stop))) do
+		(printout t "Enter your answer$: ")
 		(bind ?answer (read))
 		(if (lexemep ?answer)
 			then (bind ?answer (lowcase ?answer)))
-		(if (eq ?answer break) 
-			then (assert (break))))
+		(if (eq ?answer stop) 
+			then (assert (stop))))
 	(printout t crlf)
 	?answer
 )
 
-(deffunction start ()
+
+(deffunction load_rules_and_data()
+	(load rules.clp)
+	(load data.clp)
+)
+
+(deffunction start()
 	(reset)
-	(load-facts questions_utf8.clp)
-	(clear-window)
+	(load-facts questions.clp)
 )
 	
 	
-(deffunction main ()
-	(load rules.clp)
-	(clear-window)
-	(printout t "Рекомендательная система по инвестиционным активам на базе языка CLIPS" crlf "Авторы: 
-	Дубинин В.Д.
-	Яндутов А.В.
-При ответе введите 'break', если Вам надоест.")
-	(readline)
-	(bind ?answer "")
+(deffunction main()
+	(load_rules_and_data)
+	(printout t "Введите 'stop' чтобы остановить программу" crlf)
 	(while TRUE
 		(start)
 		(run)
-		(printout t crlf "***НАЖМИТЕ ENTER***" crlf)
-		(readline)
-		(if (eq (ask-question (nth$ 1 (find-fact ((?p question)) (eq ?p:category final)))) y) then
-			(printout t "Всего доброго :)" crlf)
+		(if (eq (ask_question (nth$ 1 (find-fact ((?p question)) (eq ?p:category final)))) 1) then
+			(printout t "Завершено!" crlf)
 			(readline)
 			(exit 0)
 		)
 	)
-)
-
-(defrule break 
-	(declare (salience 150))
-	(break)
-	=>
-	(if (eq (ask-question (nth$ 1 (find-fact ((?p question)) (eq ?p:category final)))) y) then
-		(printout t "Всего доброго :)" crlf)
-		(readline)
-		(exit 0)
-	)
-	(start)
 )

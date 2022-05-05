@@ -1,128 +1,19 @@
-(defrule Stock
-    (risk m) ; high -> h, medium -> m, low -> l
-    (profit h) ; high -> h, medium -> m, low -> l
-    (tax y) ; yes -> y, no -> n
-    (complexity m) ; high -> h, medium -> m, low -> l
-    (entryThreshold l) ; high -> h, medium -> m, low -> l
-    (ownership p) ; government -> g, private -> p, f -> foreign
-    (payments y) ; yes -> y, no -> n
-	=>
-	(printout t "Stock - бла бла" crlf)
-	(assert (end))
-)
-
-(defrule Deposit
-    (risk l) ; high -> h, medium -> m, low -> l
-    (profit l) ; high -> h, medium -> m, low -> l
-    (tax y) ; yes -> y, no -> n
-    (complexity l) ; high -> h, medium -> m, low -> l
-    (entryThreshold l) ; high -> h, medium -> m, low -> l
-    (or
-        (ownership p)
-        (ownership f)
+(defrule stop
+    (declare (salience 150))
+    (stop)
+    =>
+    (if (eq (ask_question (nth$ 1 (find-fact ((?p question)) (eq ?p:category final)))) 1) then
+        (printout t "До встречи!" crlf)
+        (readline)
+        (exit)
+    else (start)
     )
-    (payments y) ; yes -> y, no -> n
-	=>
-	(printout t "Deposit - бла бла" crlf)
-	(assert (end))
 )
 
-(defrule Bond
-    (risk l) ; high -> h, medium -> m, low -> l
-    (profit l) ; high -> h, medium -> m, low -> l
-    (tax y) ; yes -> y, no -> n
-    (complexity l) ; high -> h, medium -> m, low -> l
-    (entryThreshold l) ; high -> h, medium -> m, low -> l
-    (or
-        (ownership p)
-        (ownership f)
-        (ownership g)
-    )
-    (payments y) ; yes -> y, no -> n
-	=>
-	(printout t "Bond - бла бла" crlf)
-	(assert (end))
-)
 
-(defrule Currency
-    (risk l) ; high -> h, medium -> m, low -> l
-    (profit l) ; high -> h, medium -> m, low -> l
-    (tax n) ; yes -> y, no -> n
-    (complexity l) ; high -> h, medium -> m, low -> l
-    (entryThreshold l) ; high -> h, medium -> m, low -> l
-    (or
-        (ownership f)
-        (ownership g)
-    )
-    (payments n) ; yes -> y, no -> n
-	=>
-	(printout t "Currency - бла бла" crlf)
-	(assert (end))
-)
-
-(defrule Futures
-    (risk h) ; high -> h, medium -> m, low -> l
-    (profit h) ; high -> h, medium -> m, low -> l
-    (tax y) ; yes -> y, no -> n
-    (complexity h) ; high -> h, medium -> m, low -> l
-    (entryThreshold m) ; high -> h, medium -> m, low -> l
-    (or
-        (ownership f)
-        (ownership g)
-        (ownership p)
-    )
-    (payments n) ; yes -> y, no -> n
-	=>
-	(printout t "Currency - бла бла" crlf)
-	(assert (end))
-)
-
-(defrule Realty
-    (risk l) ; high -> h, medium -> m, low -> l
-    (profit m) ; high -> h, medium -> m, low -> l
-    (tax y) ; yes -> y, no -> n
-    (complexity m) ; high -> h, medium -> m, low -> l
-    (entryThreshold h) ; high -> h, medium -> m, low -> l
-    (ownership p)
-    (payments y) ; yes -> y, no -> n
-	=>
-	(printout t "Realty - бла бла" crlf)
-	(assert (end))
-)
-
-(defrule Crypto
-    (risk h) ; high -> h, medium -> m, low -> l
-    (profit h) ; high -> h, medium -> m, low -> l
-    (tax n) ; yes -> y, no -> n
-    (complexity h) ; high -> h, medium -> m, low -> l
-    (entryThreshold l) ; high -> h, medium -> m, low -> l
-    (ownership p)
-    (payments n) ; yes -> y, no -> n
-	=>
-	(printout t "Crypto - бла бла" crlf)
-	(assert (end))
-)
-
-(defrule PreciousMetals
-    (risk l) ; high -> h, medium -> m, low -> l
-    (profit l) ; high -> h, medium -> m, low -> l
-    (tax n) ; yes -> y, no -> n
-    (complexity l) ; high -> h, medium -> m, low -> l
-    (entryThreshold l) ; high -> h, medium -> m, low -> l
-    (payments n) ; yes -> y, no -> n
-	=>
-	(printout t "Precious Metals - бла бла" crlf)
-	(assert (end))
-)
-
-(defrule Fund
-    (risk l) ; high -> h, medium -> m, low -> l
-    (profit l) ; high -> h, medium -> m, low -> l
-    (tax y) ; yes -> y, no -> n
-    (complexity l) ; high -> h, medium -> m, low -> l
-    (entryThreshold l) ; high -> h, medium -> m, low -> l
-    (payments y) ; yes -> y, no -> n
-	=>
-	(printout t "Fund - бла бла" crlf)
-	(assert (end))
+(defrule default
+    (declare (salience -300))
+    (not (exists (final)))
+    =>
+    (printout t "К сожалению по введенным вами параметрам не удалось найти инвестиционный актив." crlf)
 )
