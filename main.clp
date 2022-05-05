@@ -13,7 +13,7 @@
 	(if (eq ?answer stop) 
 		then (assert (stop)))
 	(while (and (not (member$ ?answer (fact-slot-value ?question values))) (not (eq ?answer stop))) do
-		(printout t "Enter your answer$: ")
+		(printout t "Введите ответ: ")
 		(bind ?answer (read))
 		(if (lexemep ?answer)
 			then (bind ?answer (lowcase ?answer)))
@@ -31,9 +31,7 @@
 
 (deffunction start()
 	(reset)
-	(printout t "-- In start func --" crlf)
 	(load-facts questions.clp)
-	(printout t "-- In then end of start func --" crlf)
 )
 	
 	
