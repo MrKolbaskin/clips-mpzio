@@ -78,8 +78,10 @@
 )
 
 (defrule risk_thr_value_l
-    (risk l)
-    (not (entryThreshold h))
+    (and
+        (risk l)
+        (not (entryThreshold h))    
+    )
     =>
     (assert (profit l))
 )
@@ -87,8 +89,10 @@
 ;;;;;;;;;;;;;;;;;;;;;;
 
 (defrule profit_question
-    (not (profit_value ?))
-    (not (profit ?))
+    (and
+        (not (profit_value ?))
+        (not (profit ?))
+    )
     =>
     (assert (profit_value (ask_question (nth$ 1 (find-fact ((?p question)) (eq ?p:category profit))))))
 )
@@ -126,8 +130,10 @@
 ;;;;;;;;;;;;;;;;;;;;;;
 
 (defrule ownership_foreign_question
-    (not (ownership_foreign_value ?))
-    (not (ownership f))
+    (and
+        (not (ownership_foreign_value ?))
+        (not (ownership f))
+    )
     =>
     (assert (ownership_foreign_value (ask_question (nth$ 1 (find-fact ((?p question)) (eq ?p:category ownershipForeign))))))
 )
@@ -139,9 +145,11 @@
 )
 
 (defrule ownership_gov_question
-    (not (ownership_gov_value ?))
-    (not (ownership g))
-    (not (ownership p))
+    (and
+        (not (ownership_gov_value ?))
+        (not (ownership g))
+        (not (ownership p))
+    )
     =>
     (assert (ownership_gov_value (ask_question (nth$ 1 (find-fact ((?p question)) (eq ?p:category ownershipGovernment))))))
 )
@@ -169,9 +177,21 @@
 ;;;;;;;;;;;;;;;;;;;;;;
 
 (defrule tax_question
-    (not (tax ?))
+    (not (tax_value ?))
     =>
-    (assert (tax (ask_question (nth$ 1 (find-fact ((?p question)) (eq ?p:category tax))))))
+    (assert (tax_value (ask_question (nth$ 1 (find-fact ((?p question)) (eq ?p:category tax))))))
+)
+
+(defrule tax_value_y
+    (tax_value y)
+    =>
+    (assert (tax n))
+)
+
+(defrule tax_value_n
+    (tax_value n)
+    =>
+    (assert (tax y))
 )
 
 ;;;;;;;;;;;;;;;;;;;;;;
