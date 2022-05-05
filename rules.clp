@@ -146,21 +146,21 @@
     (assert (ownership_gov_value (ask_question (nth$ 1 (find-fact ((?p question)) (eq ?p:category ownershipGovernment))))))
 )
 
-(defrule ownership_gov_value_1
-    (ownership_gov_value 1)
+(defrule ownership_gov_value_a
+    (ownership_gov_value a)
     =>
     (assert (ownership g))
     (assert (tax y))
 )
 
-(defrule ownership_gov_value_2
-    (ownership_gov_value 2)
+(defrule ownership_gov_value_b
+    (ownership_gov_value b)
     =>
     (assert (ownership p))
 )
 
-(defrule ownership_gov_value_3
-    (ownership_gov_value 3)
+(defrule ownership_gov_value_c
+    (ownership_gov_value c)
     =>
     (assert (ownership p))
     (assert (ownership g))
