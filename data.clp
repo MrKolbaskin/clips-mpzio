@@ -7,28 +7,36 @@
     (ownership p) ; government -> g, private -> p, f -> foreign
     (payments n) ; yes -> y, no -> n
 	=>
-	(printout t "Акции российских компаний. 
-    Например: Яндекс, VK, OZON." crlf)
+    (printout t "------------- Рекомендуемый актив -------------" crlf)
+	(printout t "Акции российских компаний." crlf)
+    (printout t "Например: Яндекс, VK, OZON." crlf)
+	(printout t "-----------------------------------------------" crlf)
+	(printout t "" crlf)
+	(printout t "" crlf)
 	(assert (final))
 )
 
 (defrule DividendRussianStock
     (risk m) ; high -> h, medium -> m, low -> l
-    (profit h) ; high -> h, medium -> m, low -> l
+    (profit m) ; high -> h, medium -> m, low -> l
     (tax y) ; yes -> y, no -> n
     (complexity m) ; high -> h, medium -> m, low -> l
     (entryThreshold l) ; high -> h, medium -> m, low -> l
     (ownership p) ; government -> g, private -> p, f -> foreign
     (payments y) ; yes -> y, no -> n
 	=>
-	(printout t "Дивидендные акции российских компаний. 
-    Например: Сбер, Лукойл, Норникель." crlf)
+    (printout t "------------- Рекомендуемый актив -------------" crlf)
+	(printout t "Дивидендные акции российских компаний." crlf)
+    (printout t "Например: Сбер, Лукойл, Норникель." crlf)
+	(printout t "-----------------------------------------------" crlf)
+	(printout t "" crlf)
+	(printout t "" crlf)
 	(assert (final))
 )
 
 (defrule DividendForeignStock
     (risk m) ; high -> h, medium -> m, low -> l
-    (profit h) ; high -> h, medium -> m, low -> l
+    (profit m) ; high -> h, medium -> m, low -> l
     (tax y) ; yes -> y, no -> n
     (complexity m) ; high -> h, medium -> m, low -> l
     (entryThreshold l) ; high -> h, medium -> m, low -> l
@@ -38,8 +46,12 @@
     ) ; government -> g, private -> p, f -> foreign
     (payments y) ; yes -> y, no -> n
 	=>
-	(printout t "Дивидендные акции иностранных компаний.
-    Например: JPMorgan, NextEra, Coca-Cola" crlf)
+    (printout t "------------- Рекомендуемый актив -------------" crlf)
+	(printout t "Дивидендные акции иностранных компаний." crlf)
+    (printout t "Например: JPMorgan, NextEra, Coca-Cola" crlf)
+	(printout t "-----------------------------------------------" crlf)
+	(printout t "" crlf)
+	(printout t "" crlf)
 	(assert (final))
 )
 
@@ -55,25 +67,30 @@
     ) ; government -> g, private -> p, f -> foreign
     (payments n) ; yes -> y, no -> n
 	=>
-	(printout t "Акции иностранных компаний без дивидендов:
-    Например: Facebook, McDonalds, Tesla" crlf)
+    (printout t "------------- Рекомендуемый актив -------------" crlf)
+	(printout t "Акции иностранных компаний без дивидендов." crlf)
+    (printout t "Например: Facebook, McDonalds, Tesla" crlf)
+	(printout t "-----------------------------------------------" crlf)
+	(printout t "" crlf)
+	(printout t "" crlf)
 	(assert (final))
 )
 
 (defrule Deposit
-    (risk l) ; high -> h, medium -> m, low -> l
-    (profit l) ; high -> h, medium -> m, low -> l
-    (tax y) ; yes -> y, no -> n
-    (complexity l) ; high -> h, medium -> m, low -> l
-    (entryThreshold l) ; high -> h, medium -> m, low -> l
-    (or
-        (ownership p)
-        (ownership f)
-    )
-    (payments y) ; yes -> y, no -> n
+    (risk l) ; high -> h, medium -> m, low -> l +
+    (profit l) ; high -> h, medium -> m, low -> l +
+    (tax y) ; yes -> y, no -> n +
+    (complexity l) ; high -> h, medium -> m, low -> l +
+    (entryThreshold l) ; high -> h, medium -> m, low -> l +
+    (ownership p) ;+
+    (payments y) ; yes -> y, no -> n +
 	=>
-	(printout t "Банковский вклад. 
-    Альфа Банк - 20% на 2 мес, Тинькофф - 12% на 6 месяцев." crlf)
+    (printout t "------------- Рекомендуемый актив -------------" crlf)
+	(printout t "Банковский вклад." crlf)
+    (printout t "Альфа Банк - 20% на 2 мес, Тинькофф - 12% на 6 месяцев." crlf)
+	(printout t "-----------------------------------------------" crlf)
+	(printout t "" crlf)
+	(printout t "" crlf)
 	(assert (final))
 )
 
@@ -86,8 +103,12 @@
     (payments y) ; yes -> y, no -> n
     (ownership p)
 	=>
-	(printout t "Облигации компаний.
-    Например: облигации Газпром, ПИК." crlf)
+    (printout t "------------- Рекомендуемый актив -------------" crlf)
+	(printout t "Облигации компаний." crlf)
+    (printout t "Например: облигации Газпром, облигации ПИК" crlf)
+	(printout t "-----------------------------------------------" crlf)
+	(printout t "" crlf)
+	(printout t "" crlf)
 	(assert (final))
 )
 
@@ -99,8 +120,12 @@
     (entryThreshold l) ; high -> h, medium -> m, low -> l
     (payments y) ; yes -> y, no -> n
 	=>
-	(printout t "Госсударственные облигации.
-    Например: ОФЗ" crlf)
+    (printout t "------------- Рекомендуемый актив -------------" crlf)
+	(printout t "Госсударственные облигации." crlf)
+    (printout t "Например: ОФЗ" crlf)
+	(printout t "-----------------------------------------------" crlf)
+	(printout t "" crlf)
+	(printout t "" crlf)
 	(assert (final))
 )
 
@@ -112,8 +137,12 @@
     (entryThreshold m) ; high -> h, medium -> m, low -> l
     (payments n) ; yes -> y, no -> n
 	=>
-	(printout t "Фьючерсы.
-    Например: фьючерсы на нефть, валютные пары." crlf)
+    (printout t "------------- Рекомендуемый актив -------------" crlf)
+	(printout t "Фьючерсы." crlf)
+    (printout t "Например: фьючерсы на нефть, валютные пары" crlf)
+	(printout t "-----------------------------------------------" crlf)
+	(printout t "" crlf)
+	(printout t "" crlf)
 	(assert (final))
 )
 
@@ -123,14 +152,18 @@
     (tax n) ; yes -> y, no -> n
     (complexity l) ; high -> h, medium -> m, low -> l
     (entryThreshold l) ; high -> h, medium -> m, low -> l
-    (or
+    (and
         (ownership f)
         (ownership g)
     )
     (payments n) ; yes -> y, no -> n
 	=>
-	(printout t "Валюта.
-    Например: Доллар, Евро, Юань." crlf)
+    (printout t "------------- Рекомендуемый актив -------------" crlf)
+	(printout t "Валюта." crlf)
+    (printout t "Например: Доллар, Евро, Юань" crlf)
+	(printout t "-----------------------------------------------" crlf)
+	(printout t "" crlf)
+	(printout t "" crlf)
 	(assert (final))
 )
 
@@ -143,8 +176,12 @@
     (ownership p)
     (payments y) ; yes -> y, no -> n
 	=>
-	(printout t "Недвижимость.
-    Например: жилая, промышленная." crlf)
+    (printout t "------------- Рекомендуемый актив -------------" crlf)
+	(printout t "Недвижимость." crlf)
+    (printout t "Например: жилая, промышленная" crlf)
+	(printout t "-----------------------------------------------" crlf)
+	(printout t "" crlf)
+	(printout t "" crlf)
 	(assert (final))
 )
 
@@ -157,8 +194,12 @@
     (ownership p)
     (payments n) ; yes -> y, no -> n
 	=>
-	(printout t "Криптовалюта.
-    Например: BTC (биткоин), ETH (эфир)." crlf)
+    (printout t "------------- Рекомендуемый актив -------------" crlf)
+	(printout t "Криптовалюта." crlf)
+    (printout t "Например: BTC (биткоин), ETH (эфир)" crlf)
+	(printout t "-----------------------------------------------" crlf)
+	(printout t "" crlf)
+	(printout t "" crlf)
 	(assert (final))
 )
 
@@ -170,8 +211,12 @@
     (entryThreshold l) ; high -> h, medium -> m, low -> l
     (payments n) ; yes -> y, no -> n
 	=>
-	(printout t "Драгоценные металлы.
-    Например: золото, медь, серебро." crlf)
+    (printout t "------------- Рекомендуемый актив -------------" crlf)
+	(printout t "Драгоценные металлы." crlf)
+    (printout t "Например: золото, медь, серебро" crlf)
+	(printout t "-----------------------------------------------" crlf)
+	(printout t "" crlf)
+	(printout t "" crlf)
 	(assert (final))
 )
 
@@ -183,7 +228,11 @@
     (entryThreshold l) ; high -> h, medium -> m, low -> l
     (payments y) ; yes -> y, no -> n
 	=>
-	(printout t "Инвестиционные фонды.
-    Например: ETF акций американских компаний." crlf)
+    (printout t "------------- Рекомендуемый актив -------------" crlf)
+	(printout t "Инвестиционные фонды." crlf)
+    (printout t "Например: ETF акций американских компаний" crlf)
+	(printout t "-----------------------------------------------" crlf)
+	(printout t "" crlf)
+	(printout t "" crlf)
 	(assert (final))
 )

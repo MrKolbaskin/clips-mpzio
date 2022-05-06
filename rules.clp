@@ -19,7 +19,7 @@
 )
 
 (defrule knowledge_value_l
-    (knowledge_value 1)
+    (knowledge_value l)
     =>
     (assert (complexity l))
     (assert (risk l))
@@ -44,9 +44,30 @@
 ;;;;;;;;;;;;;;;;;;;;;;
 
 (defrule investmentAmount_question
-    (not (entryThreshold ?))
+    (not (investmentAmount ?))
     =>
-    (assert (entryThreshold (ask_question (nth$ 1 (find-fact ((?p question)) (eq ?p:category investmentAmount))))))
+    (assert (investmentAmount (ask_question (nth$ 1 (find-fact ((?p question)) (eq ?p:category investmentAmount))))))
+)
+
+(defrule investmentAmount_value_l
+    (investmentAmount l)
+    =>
+    (assert (entryThreshold l))
+)
+
+(defrule investmentAmount_value_m
+    (investmentAmount m)
+    =>
+    (assert (entryThreshold l))
+    (assert (entryThreshold m))
+)
+
+(defrule investmentAmount_value_h
+    (investmentAmount h)
+    =>
+    (assert (entryThreshold l))
+    (assert (entryThreshold m))
+    (assert (entryThreshold h))
 )
 
 ;;;;;;;;;;;;;;;;;;;;;;
@@ -67,12 +88,14 @@
 (defrule risk_value_m
     (risk_value m)
     =>
+    (assert (risk l))
     (assert (risk m))
 )
 
 (defrule risk_value_h
     (risk_value h)
     =>
+    (assert (risk l))
     (assert (risk m))
     (assert (risk h))
 )
@@ -80,6 +103,7 @@
 (defrule risk_thr_value_l
     (and
         (risk l)
+        (not (risk m))
         (not (entryThreshold h))    
     )
     =>
@@ -106,10 +130,8 @@
 (defrule profit_value_m
     (profit_value m)
     =>
+    (assert (profit l))
     (assert (profit m))
-    (assert (ownership p))
-    (assert (payments y))
-    (assert (tax y))
 )
 
 (defrule profit_value_h
@@ -117,15 +139,31 @@
     =>
     (assert (profit h))
     (assert (ownership p))
+    (assert (payments n))
 )
 
 ;;;;;;;;;;;;;;;;;;;;;;
 
 (defrule payments_question
+    (not (payments_value ?))
     (not (payments ?))
     =>
-    (assert (payments (ask_question (nth$ 1 (find-fact ((?p question)) (eq ?p:category payments))))))
+    (assert (payments_value (ask_question (nth$ 1 (find-fact ((?p question)) (eq ?p:category payments))))))
 )
+
+(defrule payments_value_y
+    (payments_value y)
+    =>
+    (assert (payments y))
+)
+
+(defrule payments_value_n
+    (payments_value n)
+    =>
+    (assert (payments n))
+    (assert (payments y))
+)
+
 
 ;;;;;;;;;;;;;;;;;;;;;;
 
@@ -178,6 +216,7 @@
 
 (defrule tax_question
     (not (tax_value ?))
+    (not (tax ?))
     =>
     (assert (tax_value (ask_question (nth$ 1 (find-fact ((?p question)) (eq ?p:category tax))))))
 )
@@ -191,6 +230,7 @@
 (defrule tax_value_n
     (tax_value n)
     =>
+    (assert (tax n))
     (assert (tax y))
 )
 
