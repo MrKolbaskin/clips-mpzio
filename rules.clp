@@ -230,7 +230,6 @@
 (defrule tax_value_n
     (tax_value n)
     =>
-    (assert (tax n))
     (assert (tax y))
 )
 

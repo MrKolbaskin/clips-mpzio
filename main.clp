@@ -37,12 +37,14 @@
 	
 (deffunction main()
 	(load_rules_and_data)
-	(printout t "Введите 'stop' чтобы остановить программу" crlf)
+	(printout t crlf)
+	(printout t "----- Введите 'stop' чтобы остановить программу -----" crlf)
+	(printout t crlf)
 	(while TRUE
 		(start)
 		(run)
 		(if (eq (ask_question (nth$ 1 (find-fact ((?p question)) (eq ?p:category final)))) y) then
-			(printout t "Завершено!" crlf)
+			(printout t "До встречи!" crlf)
 			(readline)
 			(exit 0)
 		)
