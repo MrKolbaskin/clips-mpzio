@@ -168,10 +168,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;
 
 (defrule ownership_foreign_question
-    (and
-        (not (ownership_foreign_value ?))
-        (not (ownership f))
-    )
+    (not (ownership_foreign_value ?))
     =>
     (assert (ownership_foreign_value (ask_question (nth$ 1 (find-fact ((?p question)) (eq ?p:category ownershipForeign))))))
 )
