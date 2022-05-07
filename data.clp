@@ -137,6 +137,7 @@
     (complexity l) ; high -> h, medium -> m, low -> l
     (entryThreshold l) ; high -> h, medium -> m, low -> l
     (payments y) ; yes -> y, no -> n
+    (ownership g)
 	=>
     (printout t "------------- Рекомендуемый актив -------------" crlf)
 	(printout t "Госсударственные облигации." crlf)
